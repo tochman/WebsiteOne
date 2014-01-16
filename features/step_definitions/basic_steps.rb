@@ -3,7 +3,7 @@ module WithinHelpers
     locator ? within(*selector_for(locator)) { yield } : yield
   end
 end
-World(WithinHelpers)
+
 
 def path_to(page_name, id = '')
   name = page_name.downcase
@@ -23,7 +23,7 @@ def path_to(page_name, id = '')
     when 'show' then
       project_path(id)
     #when 'My account' then
-    #  edit_user_path(id)
+      #edit_user_path(id)
   end
 end
 

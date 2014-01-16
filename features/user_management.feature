@@ -4,7 +4,7 @@ Feature: Create and maintain projects
   And I would like to be able to edit change my credentials
 
   Background:
-    Given I am logged in as user with email "current@email.com", with password "12345678"
+    Given I am logged in
     And I am on the "home" page
 
   Scenario: Having My account page

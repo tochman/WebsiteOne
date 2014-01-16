@@ -177,7 +177,7 @@ Given /^the sign in form is visible$/ do
   #expect(page).to have_form('loginForm')
   expect(page).to have_field('user_email')
   expect(page).to have_field('user_password')
-  expect(page).to have_button('signin')
+  expect(page).to have_button('checkin')
   #click_link 'Org Login'
 end
 

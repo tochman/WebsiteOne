@@ -28,6 +28,8 @@ class ProjectsController < ApplicationController
   def edit
   end
 
+
+
   def update
     if @project.update_attributes(project_params)
       redirect_to projects_path, notice: 'Project was successfully updated.'

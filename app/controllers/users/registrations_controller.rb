@@ -5,4 +5,5 @@ class Users::RegistrationsController < Devise::RegistrationsController
     render :edit
   end
 
+
 end
