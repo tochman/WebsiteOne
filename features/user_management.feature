@@ -4,10 +4,12 @@ Feature: Create and maintain projects
   And I would like to be able to edit change my credentials
 
   Background:
-    Given I am logged in
-    And I am on the "home" page
+
+    Given I am on the "home" page
+    And I am logged in
 
   Scenario: Having My account page
+    Then show me the page
     When I follow "My Account"
     Then I should see a user form for "Editing my user details"
     And the "Email" field should contain "current@email.com"

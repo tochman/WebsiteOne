@@ -43,6 +43,8 @@ module Helpers
 
   def sign_in
     visit new_user_session_path
+    debugger
+    page.status_code.should == 400
     within ('#devise') do
       fill_in 'user_email', :with => @visitor[:email]
       fill_in 'user_password', :with => @visitor[:password]
