@@ -1,0 +1,7 @@
+.question-item
+  .title
+    = question.title
+  .content
+    = question.content
+  .bottom
+    = link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' }

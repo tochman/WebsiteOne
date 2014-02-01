@@ -1,0 +1,20 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @question.title
+%p
+  %b Content:
+  = @question.content
+
+= link_to 'Edit', edit_question_path(@question)
+\|
+= link_to 'Back', questions_path
+
+.comments
+  = render @question.comments if present?
+
+
+.answers
+  = render @question.answers if present?
+

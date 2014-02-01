@@ -1,4 +1,7 @@
 WebsiteOne::Application.routes.draw do
+
+  mount SimonAsks::Engine => '/simon'
+
   get "users/index"
   root 'visitors#index'
   mount Mercury::Engine => '/'

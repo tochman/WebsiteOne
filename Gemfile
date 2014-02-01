@@ -21,6 +21,9 @@ gem 'font-awesome-rails'
 gem 'high_voltage'
 gem 'acts_as_tree', '~> 1.5.0'
 gem 'acts_as_follower'
+gem 'simon_asks', git: 'git@github.com:ethylamide/simon_asks.git'
+#gem 'protected_attributes'  # need this one for the simon_asks controller. Refactor for Rails4
+gem 'haml-rails'
 
 group :test do
   gem 'capybara' # Simulates user actions for cucumber
