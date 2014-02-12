@@ -64,5 +64,18 @@ Feature: As a user of the site
       | hello world   |
       | hello jupiter |
 
+  Scenario: Having github commit count per project
+    Given user "Bob" follows projects:
+      | title         | description             | status   | github_owner   | github_name   |
+      | hello world   | greetings earthlings    | active   | AgileVentures  | hello         |
+      | hello jupiter | greetings jupiter folks | active   |  coderx        | hello_jupiter |
+    Given I am on "profile" page for user "Bob"
+    And "Bob" has linked his Github account
+    And "Bob" has made 20 commits to "hello world"
+    And "Bob" has made 127 commits to "hello jupiter"
+    Then I should see:
+      | title         | commits |
+      | hello world   | 20      |
+      | hello jupiter | 127     |
 
 
