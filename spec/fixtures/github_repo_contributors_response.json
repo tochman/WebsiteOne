@@ -781,6 +781,66 @@
         }
     },
     {
+        "total": 127,
+        "weeks": [
+            {
+                "w": 1388880000,
+                "a": 13915,
+                "d": 1669,
+                "c": 29
+            },
+            {
+                "w": 1389484800,
+                "a": 27043,
+                "d": 395,
+                "c": 38
+            },
+            {
+                "w": 1390089600,
+                "a": 1690,
+                "d": 1015,
+                "c": 43
+            },
+            {
+                "w": 1390694400,
+                "a": 1189,
+                "d": 342,
+                "c": 29
+            },
+            {
+                "w": 1391299200,
+                "a": 1090,
+                "d": 269,
+                "c": 23
+            },
+            {
+                "w": 1391904000,
+                "a": 750,
+                "d": 370,
+                "c": 8
+            }
+        ],
+        "author": {
+            "login": "bob",
+            "id": 5248170,
+            "avatar_url": "https://gravatar.com/avatar/67af918cac530f4b3f41606fb72d2e30?d=https%3A%2F%2Fidenticons.github.com%2F20fc6024ed33633d868d0c063687fe72.png&r=x",
+            "gravatar_id": "67af918cac530f4b3f41606fb72d2e30",
+            "url": "https://api.github.com/users/bob",
+            "html_url": "https://github.com/bob",
+            "followers_url": "https://api.github.com/users/bob/followers",
+            "following_url": "https://api.github.com/users/bob/following{/other_user}",
+            "gists_url": "https://api.github.com/users/bob/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/bob/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/bob/subscriptions",
+            "organizations_url": "https://api.github.com/users/bob/orgs",
+            "repos_url": "https://api.github.com/users/bob/repos",
+            "events_url": "https://api.github.com/users/bob/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/bob/received_events",
+            "type": "User",
+            "site_admin": false
+        }
+    },
+    {
         "total": 170,
         "weeks": [
             {
