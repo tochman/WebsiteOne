@@ -52,17 +52,16 @@ Feature: As a user of the site
     Then I should see "GitHub profile: not linked"
 
   Scenario: Having a list of followed projects on my profile page
-    Given user "Bob" follows projects:
-      | title         | description             | status |
-      | hello world   | greetings earthlings    | active |
-      # | hello mars    | greetings aliens        | inactive |
-      | hello jupiter | greetings jupiter folks | active |
-    When I click "Bob Butcher"
-    Then I should be on the "user profile" page for "Bob"
-    And I should see:
-      | title         |
-      | hello world   |
-      | hello jupiter |
+  	Given user "Bob" follows projects:
+  	| title         | description             | status   |
+  	| hello world   | greetings earthlings    | active   |
+  	| hello jupiter | greetings jupiter folks | active   |
+  	When I click "Bob Butcher"
+  	Then I should be on the "user profile" page for "Bob"
+  	And I should see:
+  	| title			|
+  	| hello world 	|
+  	| hello jupiter |
 
   Scenario: Having github commit count per project
     Given user "Bob" follows projects:
@@ -71,8 +70,8 @@ Feature: As a user of the site
       | hello jupiter | greetings jupiter folks | active   |  coderx        | hello_jupiter |
     Given I am on "profile" page for user "Bob"
     And "Bob" has linked his Github account
-    And "Bob" has made 20 commits to "hello world"
-    And "Bob" has made 127 commits to "hello jupiter"
+    And "Bob" has made 20 commits to "hello_world"
+    And "Bob" has made 127 commits to "hello_jupiter"
     Then I should see:
       | title         | commits |
       | hello world   | 20      |
