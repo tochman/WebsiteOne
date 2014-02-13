@@ -1,23 +1,23 @@
 require 'spec_helper'
 
 describe "users/show.html.erb" do
-	before :each do
+  before :each do
     now = DateTime.now
     thirty_days_ago = (now - 33)
     @projects = [
-        mock_model(Project, friendly_id: 'title-1', title: 'Title 1'),
-        mock_model(Project, friendly_id: 'title-2', title: 'Title 2'),
-        mock_model(Project, friendly_id: 'title-3', title: 'Title 3')
+        mock_model(Project, id: 1, friendly_id: 'title-1', title: 'Title 1'),
+        mock_model(Project, id: 2, friendly_id: 'title-2', title: 'Title 2'),
+        mock_model(Project, id: 3, friendly_id: 'title-3', title: 'Title 3')
     ]
-	  @user = mock_model(User, id: 4,
-                             display_name: 'Eric Els',
-                             first_name: 'Eric',
-                             last_name: 'Els',
-                             email: 'eric@somemail.se',
-                             created_at: thirty_days_ago,
-                             github_profile_url: 'http://github.com/Eric'
-                      )
-		assign :user, @user
+    @user = mock_model(User, id: 4,
+                       display_name: 'Eric Els',
+                       first_name: 'Eric',
+                       last_name: 'Els',
+                       email: 'eric@somemail.se',
+                       created_at: thirty_days_ago,
+                       github_profile_url: 'http://github.com/Eric'
+    )
+    assign :user, @user
     assign :users_projects, @projects
     @youtube_videos = [
         {
@@ -39,7 +39,7 @@ describe "users/show.html.erb" do
     assign :youtube_videos, @youtube_videos
 
     @user.stub(:skill_list).and_return(["rails"])
-	end
+  end
 
   it 'renders a table wih video links if there are videos' do
     render
@@ -91,15 +91,15 @@ describe "users/show.html.erb" do
   end
 
   it 'renders big user avatar' do
-    expect(view).to receive(:gravatar_for).with(@user.email ,size: 275).and_return('img_link')
+    expect(view).to receive(:gravatar_for).with(@user.email, size: 275).and_return('img_link')
     render
     expect(rendered).to have_css('img')
     expect(rendered).to have_xpath("//img[contains(@src, 'img_link')]")
   end
   it 'renders user first and last names' do
-  	render
-  	expect(rendered).to have_content(@user.first_name)
-  	expect(rendered).to have_content(@user.last_name)
+    render
+    expect(rendered).to have_content(@user.first_name)
+    expect(rendered).to have_content(@user.last_name)
   end
 
   it 'should not display an edit button if it is not my profile' do
@@ -128,15 +128,13 @@ describe "users/show.html.erb" do
 
   context 'users own profile page' do
     before :each do
-        @user_logged_in ||= FactoryGirl.create :user
-        sign_in @user_logged_in # method from devise:TestHelpers
+      @user_logged_in ||= FactoryGirl.create :user
+      sign_in @user_logged_in # method from devise:TestHelpers
     end
     it 'displays an edit button if it is my profile' do
       render
       expect(rendered).to_not have_xpath("//a[contains(@type, 'button')]")
     end
-
-
   end
 
   it 'renders list of followed projects' do
@@ -144,6 +142,13 @@ describe "users/show.html.erb" do
     @projects.each do |project|
       expect(rendered).to have_link(project.title, href: project_path(project))
     end
+  end
+
+  it 'should display a commit count on some projects' do
+    commit_count = { '1' => 20, '2' => '' }
+    assign(:commit_count, commit_count)
+    render
+    expect(rendered).to have_text("commits: #{@commit_count}")
   end
 
   it 'renders list of user skills' do
