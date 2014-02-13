@@ -354,7 +354,6 @@ Given(/^"([^"]*)" has linked his Github account$/) do |name|
   user = User.find_by_first_name name
   ##TODO PB to refactor deprecated method
   #Authentication.find_or_create_by_user_id_and_provider user.id, 'github'
-<<<<<<< HEAD
   @auth_identity = Authentication.find_or_create_by(user_id: user.id, provider: 'github')
   @auth_identity.uid = 'bob_github_id'
 end
@@ -364,5 +363,4 @@ Given(/^"([^"]*)" has made (\d*) commits to "([^"]*)"$/) do |name, count, projec
   @github_response["#{project_title}"] = File.read("spec/fixtures/github_#{project_title}_response.json")
   stub_request('get', 'https://api.github.com/repos/{project.github_owner}/{project.github_title}/stats/contributors').
       to_return(:body, @github_contrib_response)
-  # Find the fixture file
 end
