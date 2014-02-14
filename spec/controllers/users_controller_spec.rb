@@ -27,9 +27,9 @@ describe UsersController do
   describe 'GET show' do
     before :each do
       @projects = [
-          mock_model(Project, friendly_id: 'title-1', title: 'Title 1'),
-          mock_model(Project, friendly_id: 'title-2', title: 'Title 2'),
-          mock_model(Project, friendly_id: 'title-3', title: 'Title 3')
+          mock_model(Project, id: 1, friendly_id: 'title-1', title: 'Title 1'),
+          mock_model(Project, id: 2, friendly_id: 'title-2', title: 'Title 2'),
+          mock_model(Project, id: 3, friendly_id: 'title-3', title: 'Title 3')
       ]
 
       @user = double('User', id: 1,
@@ -92,6 +92,11 @@ describe UsersController do
         @user.stub(display_profile: false)
         get 'show', id: @user.friendly_id
         expect(response).to redirect_to root_path
+      end
+
+      it 'assigns a commit count hash with items for each project' do
+        controller.stub(call_github_stats).and_return(commit_count)
+        expect(assigns(:commit_count)).to eq(commit_count)
       end
     end
   end

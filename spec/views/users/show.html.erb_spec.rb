@@ -135,6 +135,14 @@ describe "users/show.html.erb" do
       render
       expect(rendered).to_not have_xpath("//a[contains(@type, 'button')]")
     end
+    it 'should display a commit count on some projects' do
+      commit_count = { 1 => 20, 2 => '50' }
+      assign(:commit_count, commit_count)
+      render
+      expect(rendered).to have_text("Title 1 commits: 20")
+      expect(rendered).to have_text("Title 2 commits: 50")
+      expect(rendered).to have_text("Title 3 commits:")
+    end
   end
 
   it 'renders list of followed projects' do
