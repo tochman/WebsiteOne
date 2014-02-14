@@ -37,6 +37,19 @@ module UsersHelper
 
 end
 
+module Github
+  class << self
+    def get_project_stats(user, projects)
+      commit_count = {}
+      projects.each { |project| commit_count[project.id] = get_commits(user, project) }
+    end
+
+    def get_commits(user, project)
+
+    end
+  end
+end
+
 #TODO YA move to a separate helper module and upgrade to v3
 module Youtube
   class << self
