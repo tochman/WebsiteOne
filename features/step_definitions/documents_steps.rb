@@ -19,16 +19,15 @@ Given(/^the following documents exist:$/) do |table|
       temp_author.documents.create hash
     end
   end
-end                         New content 0
+end
 
-Given(/^the following revisions exist$/) do |table|
-  # table is a | Guides        | 1          |
+Given(/^the following revisions exist:$/) do |table|
   table.hashes.each do |hash|
     hash[:revisions].to_i.times do |number|
       doc = Document.find_by_title(hash[:title])
       doc.update(:body => "New content #{number}")
       doc.save
-      puts [doc.title, doc.body].join(' ')
+      #puts [doc.title, doc.body].join(' ')
     end
   end
 end

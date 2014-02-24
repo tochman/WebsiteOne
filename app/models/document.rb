@@ -1,11 +1,14 @@
 class Document < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
+              3
 
   belongs_to :project
   belongs_to :user
 
+  has_paper_trail
   acts_as_tree
+
   validates :title, :project_id, presence: true
 
 
