@@ -15,6 +15,12 @@ Feature: Manage Document
       | Guides        | My guide to      | hello mars  |
       | Documentation | My documentation | hello world |
 
+    And the following revisions exist
+      | title         | revisions  |
+      | Guides        | 1          |
+      | Documentation | 3          |
+
+
 
   Scenario: Render of list documents
     Given I am on the "Show" page for project "hello world"
@@ -74,7 +80,7 @@ Feature: Manage Document
 
   @javascript
   Scenario: Mercury editor shows Save and Cancel buttons, hides New Document button,
-    Save button works
+  Save button works
 
     Given the document "Guides" has a child document with title "Howto"
     Given I am going to use the Mercury Editor
@@ -145,6 +151,6 @@ Feature: Manage Document
     When I try to edit the page
     Then I should see "You do not have the right privileges to complete action."
 
-  Scenario: Document should have a history of changes 
+  Scenario: Document should have a history of changes
     Given I am on the "Show" page for document "Guides"
-    Then I should see "Document History" 
+    Then I should see "Revisions"

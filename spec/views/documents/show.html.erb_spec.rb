@@ -21,6 +21,9 @@ describe "documents/show" do
                                  :parent_id => 1,
                                  :created_at => Time.now
     )
+
+    #@document_versions = mock_model(@document.versions)
+
     assign(:user, @user)
     view.stub(:created_by).and_return(@created_by)
   end
@@ -30,6 +33,12 @@ describe "documents/show" do
   #  rendered.should have_content('Title')
   #  rendered.should have_content('MyText')
   #end
+
+  it 'should render document revisions history' do
+    render
+    rendered.should have_content 'Revisions'
+  end
+
   context 'document is root' do
     before do
       assign :document, @document
