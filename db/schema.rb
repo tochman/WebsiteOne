@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140225000044) do
+ActiveRecord::Schema.define(version: 20140304072547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,29 @@ ActiveRecord::Schema.define(version: 20140225000044) do
   add_index "follows", ["followable_id", "followable_type"], name: "fk_followables", using: :btree
   add_index "follows", ["follower_id", "follower_type"], name: "fk_follows", using: :btree
 
+  create_table "fullcalendar_engine_event_series", force: true do |t|
+    t.integer  "frequency",  default: 1
+    t.string   "period",     default: "monthly"
+    t.datetime "starttime"
+    t.datetime "endtime"
+    t.boolean  "all_day",    default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "fullcalendar_engine_events", force: true do |t|
+    t.string   "title"
+    t.datetime "starttime"
+    t.datetime "endtime"
+    t.boolean  "all_day",         default: false
+    t.text     "description"
+    t.integer  "event_series_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "fullcalendar_engine_events", ["event_series_id"], name: "index_fullcalendar_engine_events_on_event_series_id", using: :btree
+
   create_table "projects", force: true do |t|
     t.string   "title"
     t.text     "description"
@@ -111,9 +134,9 @@ ActiveRecord::Schema.define(version: 20140225000044) do
     t.string   "first_name"
     t.string   "last_name"
     t.boolean  "display_email"
+    t.string   "youtube_id"
     t.string   "slug"
     t.boolean  "display_profile",        default: true
-    t.string   "youtube_id"
     t.float    "latitude"
     t.float    "longitude"
     t.string   "country"
