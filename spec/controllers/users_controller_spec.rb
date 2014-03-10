@@ -107,8 +107,8 @@ describe UsersController do
 
       @previous_page = '/'
       @request.env['HTTP_REFERER'] = @previous_page
+     # Mailer.hire_me_form(user, valid_params)
       Mailer.stub_chain(:hire_me_form, :deliver).and_return(true)
-
       ActionMailer::Base.delivery_method = :test
       ActionMailer::Base.perform_deliveries = true
       ActionMailer::Base.deliveries = []
@@ -117,7 +117,7 @@ describe UsersController do
 
 
     it 'renders successful message' do
-      post :hire_me_contact_form, valid_params
+      post :hire_me_contact_form, [user, valid_params]
       expect(response).to redirect_to @previous_page
       expect(flash[:notice]).to eq('Your message has been sent successfully!')
     end
