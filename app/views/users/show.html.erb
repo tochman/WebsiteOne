@@ -24,7 +24,7 @@
     <% unless @users_projects.empty? %>
         <ul>
           <% @users_projects.each do |project| %>
-              <li><%= link_to project.title, project_path(project) %> commits: <%= @commit_count[project.id] %></li>
+              <li><%= link_to project.title, project_path(project) %> <%= 'commits: ' + @commit_count[project.id] if @commit_count[project.id].present?%></li>
           <% end %>
         </ul>
     <% end %>

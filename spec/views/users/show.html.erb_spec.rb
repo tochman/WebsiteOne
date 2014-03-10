@@ -37,6 +37,7 @@ describe "users/show.html.erb" do
         }
     ]
     assign :youtube_videos, @youtube_videos
+    assign :commit_count, {}
 
     @user.stub(:skill_list).and_return(["rails"])
   end
