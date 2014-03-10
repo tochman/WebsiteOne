@@ -61,6 +61,7 @@ describe UsersController do
           }
       ]
       Youtube.stub(user_videos: @youtube_videos)
+      @user.stub(project_commits: {})
     end
 
     it 'assigns a user instance' do

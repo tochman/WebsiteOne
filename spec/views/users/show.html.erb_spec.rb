@@ -37,6 +37,7 @@ describe "users/show.html.erb" do
         }
     ]
     assign :youtube_videos, @youtube_videos
+    assign :commit_count, {}
     @user.stub(:skill_list).and_return(["rails"])
   end
 
@@ -149,13 +150,6 @@ describe "users/show.html.erb" do
     @projects.each do |project|
       expect(rendered).to have_link(project.title, href: project_path(project))
     end
-  end
-
-  it 'should display a commit count on some projects' do
-    commit_count = { '1' => 20, '2' => '' }
-    assign(:commit_count, commit_count)
-    render
-    expect(rendered).to have_text("commits: #{@commit_count}")
   end
 
   it 'renders list of user skills' do
