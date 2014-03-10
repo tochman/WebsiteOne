@@ -37,8 +37,6 @@ describe "users/show.html.erb" do
         }
     ]
     assign :youtube_videos, @youtube_videos
-    assign :commit_count, {}
-
     @user.stub(:skill_list).and_return(["rails"])
   end
 
@@ -137,12 +135,12 @@ describe "users/show.html.erb" do
       expect(rendered).to_not have_xpath("//a[contains(@type, 'button')]")
     end
     it 'should display a commit count on some projects' do
-      commit_count = { 1 => 20, 2 => '50' }
-      assign(:commit_count, commit_count)
+      commit_count = { '1' => 20, '2' => 50 }
+      assign :commit_count, { 1 => 20, 2 => 50 }
       render
-      expect(rendered).to have_text("Title 1 commits: 20")
-      expect(rendered).to have_text("Title 2 commits: 50")
-      expect(rendered).to have_text("Title 3 commits:")
+      expect(rendered).to have_text('Title 1 commits: 20')
+      expect(rendered).to have_text('Title 2 commits: 50')
+      expect(rendered).to have_text('Title 3')
     end
   end
 

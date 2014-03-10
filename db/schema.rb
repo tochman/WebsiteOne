@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140309133549) do
+ActiveRecord::Schema.define(version: 20140310121922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,8 @@ ActiveRecord::Schema.define(version: 20140309133549) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.string   "slug"
+    t.string   "github_owner"
+    t.string   "github_repo"
   end
 
   add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true, using: :btree
@@ -132,7 +134,6 @@ ActiveRecord::Schema.define(version: 20140309133549) do
     t.string   "youtube_id"
     t.string   "slug"
     t.boolean  "display_profile",        default: true
-    t.string   "youtube_id"
     t.float    "latitude"
     t.float    "longitude"
     t.string   "country"

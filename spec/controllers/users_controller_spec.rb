@@ -96,9 +96,10 @@ describe UsersController do
 
       it 'assigns a commit count hash with items for each project' do
         @user.stub(display_profile: true)
-        controller.stub(:get_project_stats).and_return({})
+        @user.stub(project_commits: {1 => 50})
+
         get 'show', id: @user.friendly_id
-        expect(assigns(:commit_count)).to eq({})
+        expect(assigns(:commit_count)).to eq({1 => 50})
       end
     end
   end

@@ -9,13 +9,13 @@ Feature: As a user of the site
       | Alice      | Jones     | alice@btinternet.co.uk | http://github.com/AliceSky |
       | Bob        | Butcher   | bobb112@hotmail.com    |                            |
     And the following projects exist:
-      | title         | description             | status   |
-      | hello world   | greetings earthlings    | active   |
-      | hello mars    | greetings aliens        | inactive |
-      | hello jupiter | greetings jupiter folks | active   |
-      | hello mercury | greetings mercury folks | inactive |
-      | hello saturn  | greetings saturn folks  | active   |
-      | hello sun     | greetings sun folks     | active   |
+      | title         | description             | status   | github_owner  | github_repo   |
+      | hello world   | greetings earthlings    | active   | AgileVentures | hello_world         |
+      | hello mars    | greetings aliens        | inactive |               |               |
+      | hello jupiter | greetings jupiter folks | active   | coderx        | hello_jupiter |
+      | hello mercury | greetings mercury folks | inactive |               |               |
+      | hello saturn  | greetings saturn folks  | active   |               |               |
+      | hello sun     | greetings sun folks     | active   |               |               |
     And I am logged in as user with email "brett@example.com", with password "12345678"
     And I am on the "Our members" page
 
@@ -52,22 +52,22 @@ Feature: As a user of the site
     Then I should see "GitHub profile: not linked"
 
   Scenario: Having a list of followed projects on my profile page
-  	Given user "Bob" follows projects:
-  	| title         | description             | status   |
-  	| hello world   | greetings earthlings    | active   |
-  	| hello jupiter | greetings jupiter folks | active   |
-  	When I click "Bob Butcher"
-  	Then I should be on the "user profile" page for "Bob"
-  	And I should see:
-  	| title			|
-  	| hello world 	|
-  	| hello jupiter |
+    Given user "Bob" follows projects:
+      | title         | description             | status |
+      | hello world   | greetings earthlings    | active |
+      | hello jupiter | greetings jupiter folks | active |
+    When I click "Bob Butcher"
+    Then I should be on the "user profile" page for "Bob"
+    And I should see:
+      | title         |
+      | hello world   |
+      | hello jupiter |
 
   Scenario: Having github commit count per project
     Given user "Bob" follows projects:
-      | title         | description             | status   | github_owner   | github_name   |
-      | hello world   | greetings earthlings    | active   | AgileVentures  | hello         |
-      | hello jupiter | greetings jupiter folks | active   |  coderx        | hello_jupiter |
+      | title         | description             | status |
+      | hello world   | greetings earthlings    | active |
+      | hello jupiter | greetings jupiter folks | active |
     Given I am on "profile" page for user "Bob"
     And "Bob" has linked his Github account
     And "Bob" has made 20 commits to "hello_world"

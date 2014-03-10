@@ -1,7 +1,7 @@
 
 [
     {
-        "total": 1,
+        "total": 127,
         "weeks": [
             {
                 "w": 1388880000,
@@ -42,7 +42,7 @@
         ],
         "author": {
             "login": "coloradobum",
-            "id": 28269,
+            "id": 123456,
             "avatar_url": "https://gravatar.com/avatar/f37a61d2853773ffa4f665e388a5e7e3?d=https%3A%2F%2Fidenticons.github.com%2Ffe09c5740705ed9dc0e9987c2e107ad5.png&r=x",
             "gravatar_id": "f37a61d2853773ffa4f665e388a5e7e3",
             "url": "https://api.github.com/users/coloradobum",
@@ -61,7 +61,7 @@
         }
     },
     {
-        "total": 2,
+        "total": 24,
         "weeks": [
             {
                 "w": 1388880000,

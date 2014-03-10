@@ -17,8 +17,7 @@ class UsersController < ApplicationController
       redirect_to root_path
     else
       @youtube_videos  = Youtube.user_videos(@user) if @user
-      #@commit_count = Github.get_project_stats(@users_projects)
-      @commit_count = {}
+      @commit_count = @user.project_commits
     end
   end
 end
