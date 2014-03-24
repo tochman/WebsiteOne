@@ -30,18 +30,21 @@ gem 'redcarpet' # renders markdown
 gem 'coderay' # syntax highlighting for markdown code blocks
 gem 'acts-as-taggable-on' # Add tags to objects. Used on Projects
 gem 'geocoder' # geocoding
+gem 'bootstrap-modal-rails'
 gem 'paper_trail', '~> 3.0.0'   # version control for Document
 gem 'verbs'   # language and verbs - not used for now but I plan to use it in Events /Thomas
 gem 'ice_cube'     # used for Event
 gem 'squeel'
 gem 'jquery-turbolinks'    #fix for turbolink problem we had with the HOA button and jQuery not loading ??
 gem 'addressable'       # used for uri validation
+gem 'exception_notification'
 
 group :test do
   gem 'capybara' # Simulates user actions for cucumber
   gem 'cucumber-rails', :require => false # Cucmber features
   gem 'capybara-webkit'  # Headless driver for capybara
   gem 'selenium-webdriver' # Headful driver for capybara
+  gem 'poltergeist', '1.5.0' # yet another headless driver for capybara
   gem 'webrat'  # Another Headless driver for capybara
   gem 'launchy' # Opens capybara response in your browser on save_and_open_page
   gem 'database_cleaner'  # Provides strategies for cleaning up the test db after test runs
@@ -63,4 +66,9 @@ end
 group :production do
   gem 'rails_12factor'
   gem 'unicorn'
+end
+
+group :assets do
+  gem 'compass-rails'
+  # Add any compass extensions here
 end

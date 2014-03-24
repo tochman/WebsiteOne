@@ -1,5 +1,13 @@
 module Helpers
 
+  def default_test_author
+    @default_test_author ||= User.create! first_name: 'Tester',
+                                          last_name: 'Man',
+                                          email: 'testing@test.agileventures.org',
+                                          password: test_user_password,
+                                          password_confirmation: test_user_password
+  end
+
   def test_ip_address
     '127.0.0.1'
   end
@@ -28,7 +36,7 @@ module Helpers
   def create_test_user(options = {})
     skills = options.delete "skills"
     options = default_test_user_details.merge options
-    user = User.create!(options)
+    user = User.new(options)
     user.skill_list = skills
     user.save!
   end
@@ -98,6 +106,16 @@ module Capybara
     def has_link_or_button?(name)
       has_link?(name) || has_button?(name)
     end
+  end
+end
+
+class String
+  def underscore
+    self.gsub(/::/, '/').
+      gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
+      gsub(/([a-z\d])([A-Z])/,'\1_\2').
+      tr("- ", "_").
+      downcase
   end
 end
 

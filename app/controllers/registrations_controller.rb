@@ -30,8 +30,6 @@ class RegistrationsController < Devise::RegistrationsController
         sign_in current_user, :bypass => true
         redirect_to after_update_path_for(@user)
       else
-        puts @user.inspect
-        puts @user.errors.full_message.join(', ')
         render :edit
       end
     end
@@ -50,5 +48,9 @@ class RegistrationsController < Devise::RegistrationsController
       @user.apply_omniauth(session[:omniauth])
       @user.valid?
     end
+  end
+
+  def after_update_path_for(resource)
+    users_show_path(resource)
   end
 end

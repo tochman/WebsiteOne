@@ -365,3 +365,23 @@ Given(/^"([^"]*)" has made (\d*) commits to "([^"]*)"$/) do |name, count, projec
   stub_request(:get, request).to_return(body: @github_response[project_title])
 
 end
+  debugger
+  page.all(:css, "#skills-show span").collect { |e| e.text }.sort.should == skills.split(",").sort
+end
+
+And(/^I have a GitHub profile with username "([^"]*)"$/) do |username|
+  @github_profile_url = "https://github.com/#{username}"
+end
+When(/^my profile should be updated with my GH username$/) do
+  @user.github_profile_url = @github_profile_url
+  @user.save
+  expect(@user.github_profile_url).to eq @github_profile_url
+end
+
+Then(/^the request should be to "(.*)"$/) do |url|
+  expect(current_url).to eq url
+end
+
+Then(/^I should see the user's bio$/) do
+  pending # express the regexp above with the code you wish you had
+end

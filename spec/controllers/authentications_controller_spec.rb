@@ -197,6 +197,7 @@ describe AuthenticationsController do
       expect(response).to redirect_to 'back_path'
     end
   end
+
   describe 'Github profile link' do
     before(:each) do
       controller.stub(authenticate_user!: true)
@@ -209,6 +210,8 @@ describe AuthenticationsController do
     it 'links Github profile when authenticate with GitHub' do
       user = stub_model(User, github_profile_url: nil)
       controller.stub(current_user: user)
+      User.stub(find: user)
+      user.stub(:reload)
 
       expect(controller).to receive(:link_github_profile).and_call_original
       get :create, provider: 'github'

@@ -1,24 +1,21 @@
 class DocumentsController < ApplicationController
   layout 'with_sidebar'
-  before_action :set_document, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [ :index, :show, :create ]
   before_action :find_project
+  before_action :set_document, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show, :create]
 
 
   # GET /documents
   # GET /documents.json
   def index
-    # TODO separate route for "documents for a project"
-    #@documents = Document.all
-    # Bryan: Replaced with project show page
-    raise 'DEPRECATED PATH EXCEPTION'
-    #@documents = Document.where('project_id = ?', @project.id).order(:created_at)
+    # Bryan: So that Sampriti doesn't spam us with emails
+    redirect_to project_path @project
   end
 
   # GET /documents/1
   # GET /documents/1.json
   def show
-    @children = @document.children.order(created_at: :asc)
+    @children = @document.children.order(created_at: :desc)
   end
 
   # GET /documents/new
@@ -88,15 +85,11 @@ class DocumentsController < ApplicationController
 
   private
   def find_project
-    if params[:project_id]
-      raise 'USING ID ERROR' if params[:project_id] =~ /^\d+$/
-      @project = Project.friendly.find(params[:project_id])
-    end
+    @project = Project.friendly.find(params[:project_id])
   end
 
   def set_document
-    raise 'USING ID ERROR' if params[:id] =~ /^\d+$/
-    @document = Document.friendly.find(params[:id])
+    @document = @project.documents.find_by_slug!(params[:id])
   end
 
   def set_parent
@@ -104,7 +97,6 @@ class DocumentsController < ApplicationController
       @parent = Document.find(params[:parent_id])
     end
   end
-
 
 
   # Never trust parameters from the scary internet, only allow the white list through.

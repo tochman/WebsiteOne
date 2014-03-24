@@ -8,6 +8,7 @@ class AuthenticationsController < ApplicationController
 
     omniauth = request.env['omniauth.auth']
     authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
+
     @path = request.env['omniauth.origin'] || root_path
 
     if authentication.present?
@@ -20,7 +21,7 @@ class AuthenticationsController < ApplicationController
       create_new_user_with_authentication(omniauth)
     end
 
-    if current_user && omniauth['provider']=='github' && current_user.github_profile_url.nil?
+    if current_user && omniauth['provider']=='github' && current_user.github_profile_url.blank?
       link_github_profile
     end
   end
@@ -57,10 +58,22 @@ class AuthenticationsController < ApplicationController
 
   def link_github_profile
     omniauth = request.env['omniauth.auth']
-    p omniauth
-    return unless omniauth['info'].present? && omniauth['info']['urls'].present? && omniauth['info']['urls']['GitHub'].present?
-    current_user.github_profile_url = omniauth['info']['urls']['GitHub']
-    current_user.save
+
+    url = ''
+    begin
+      url = omniauth['info']['urls']['GitHub']
+    rescue NoMethodError
+      return
+    end
+
+    user = User.find(current_user.id)
+    if user.update_attributes(github_profile_url: url)
+      # success
+      current_user.reload
+    else
+      flash[:alert] = 'Linking your GitHub profile has failed'
+      Rails.logger.error user.errors.full_messages
+    end
   end
 
   def link_to_youtube

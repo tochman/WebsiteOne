@@ -41,7 +41,9 @@ describe UsersController do
                      youtube_id: 'test_id'
       )
       @user.stub(:following_by_type).and_return(@projects)
+      @user.stub(:skill_list).and_return([])
       User.stub_chain(:friendly, :find).and_return(@user)
+      @user.stub(:bio).and_return('test_bio')
 
       @youtube_videos = [
           {
@@ -103,5 +105,10 @@ describe UsersController do
         expect(assigns(:commit_count)).to eq({1 => 50})
       end
     end
+  end
+
+  describe 'send hire me button message' do
+
+
   end
 end
