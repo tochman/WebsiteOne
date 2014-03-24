@@ -337,6 +337,10 @@ Then(/^(.*) in the members list$/) do |s|
   end
 end
 
+Then(/^I should see skills "(.*)" on my profile/) do |skills|
+  page.all(:css, "#skills-show span").collect { |e| e.text }.sort.should == skills.split(",").sort
+end
+
 Given(/^I visit (.*)'s profile page$/) do |name|
   user = User.find_by_first_name name
   visit users_show_path user
@@ -365,9 +369,7 @@ Given(/^"([^"]*)" has made (\d*) commits to "([^"]*)"$/) do |name, count, projec
   stub_request(:get, request).to_return(body: @github_response[project_title])
 
 end
-  debugger
-  page.all(:css, "#skills-show span").collect { |e| e.text }.sort.should == skills.split(",").sort
-end
+
 
 And(/^I have a GitHub profile with username "([^"]*)"$/) do |username|
   @github_profile_url = "https://github.com/#{username}"

@@ -55,8 +55,7 @@
             <h4><%= @user.display_name %> contributes to following projects</h4>
             <% @users_projects.each do |project| %>
                 <%#link_to project.title, project_path(project) %> <%# 'commits: ' + @commit_count[project.id].to_s if @commit_count[project.id].present? %>
-
-                <span class="tag label btn-agile md"><%= link_to project.title, project_path(project) %></span>
+                 <span class="tag label btn-agile md"><%= project_link(@user, project) %></span>
             <% end %>
           </div>
       <% end %>

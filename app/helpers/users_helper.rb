@@ -48,9 +48,9 @@ module Github
 
     end
 
-    def project_link(project)
-      if @commit_count[project.id].present?
-        link_to [project.title, @commit_count[project.id].to_s].join(' '), project_path(project)
+    def project_link(user, project)
+      if user.project_commits[project.id].present?
+        link_to [project.title, user.project_commits[project.id].to_s].join(' '), project_path(project)
       else
         link_to project.title, project_path(project)
       end

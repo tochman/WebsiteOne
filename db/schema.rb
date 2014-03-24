@@ -91,6 +91,8 @@ ActiveRecord::Schema.define(version: 20140319173130) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.string   "slug"
+    t.string   "github_owner"
+    t.string   "github_repo"
   end
 
   add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true, using: :btree
