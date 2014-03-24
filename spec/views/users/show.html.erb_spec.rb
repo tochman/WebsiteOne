@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "users/show.html.erb" do
-	before :each do
+  before :each do
     now = DateTime.now
     thirty_days_ago = (now - 33)
     @projects = [
@@ -9,16 +9,16 @@ describe "users/show.html.erb" do
         mock_model(Project, friendly_id: 'title-2', title: 'Title 2'),
         mock_model(Project, friendly_id: 'title-3', title: 'Title 3')
     ]
-	  @user = mock_model(User, id: 4,
-                             display_name: 'Eric Els',
-                             first_name: 'Eric',
-                             last_name: 'Els',
-                             email: 'eric@somemail.se',
-                             created_at: thirty_days_ago,
-                             github_profile_url: 'http://github.com/Eric',
-                             bio: 'Lonesome Cowboy'
-                      )
-		assign :user, @user
+    @user = mock_model(User, id: 4,
+                       display_name: 'Eric Els',
+                       first_name: 'Eric',
+                       last_name: 'Els',
+                       email: 'eric@somemail.se',
+                       created_at: thirty_days_ago,
+                       github_profile_url: 'http://github.com/Eric',
+                       bio: 'Lonesome Cowboy'
+    )
+    assign :user, @user
     assign :users_projects, @projects
     @youtube_videos = [
         {
@@ -41,7 +41,7 @@ describe "users/show.html.erb" do
     assign :bio, @user.bio
     @skills = ["rails", "ruby", "rspec"]
     assign :skills, @skills
-	end
+  end
 
   it 'renders a table wih video links if there are videos' do
     render
@@ -65,33 +65,6 @@ describe "users/show.html.erb" do
     expect(rendered).to have_text('Eric Els has no publicly viewable Youtube videos.')
   end
 
-  it 'renders "connect youtube channel" when user views his profile and it is not yet connected' do
-    @user.stub(youtube_id: nil)
-    assign(:youtube_videos, nil)
-    view.stub(current_user: @user)
-
-    render
-    expect(rendered).to have_link('Sync with YouTube')
-  end
-
-  it 'renders "disconnect youtube channel" when user views his profile and is connected' do
-    @user.stub(youtube_id: 'test')
-    assign(:youtube_videos, nil)
-    view.stub(current_user: @user)
-
-    render
-    expect(rendered).to have_link('Disconnect YouTube')
-  end
-
-  it 'does not render "connect youtube channel" when user views other profile' do
-    @user.stub(youtube_id: nil)
-    assign(:youtube_videos, nil)
-    view.stub(current_user: mock_model(User, id: 'test'))
-
-    render
-    expect(rendered).not_to have_text('Link your YouTube channel')
-  end
-
   it 'renders big user avatar' do
     expect(view).to receive(:gravatar_for).with(@user.email ,size: 275).and_return('img_link')
     render
@@ -99,9 +72,9 @@ describe "users/show.html.erb" do
     expect(rendered).to have_xpath("//img[contains(@src, 'img_link')]")
   end
   it 'renders user first and last names' do
-  	render
-  	expect(rendered).to have_content(@user.first_name)
-  	expect(rendered).to have_content(@user.last_name)
+    render
+    expect(rendered).to have_content(@user.first_name)
+    expect(rendered).to have_content(@user.last_name)
   end
 
   it 'should not display an edit button if it is not my profile' do
@@ -112,15 +85,54 @@ describe "users/show.html.erb" do
     expect(rendered).not_to have_link('Edit', href: '/users/edit')
   end
 
+  context 'profile privacy' do
+    it 'should display email if it is set to public' do
+      @user.stub(display_email: true)
+      render
+      expect(rendered).to have_link(@user.email)
+    end
+
+    it 'should display an hire me button if it set to public' do
+      @user.stub(display_hire_me: false)
+      render
+      expect(rendered).not_to have_link('Hire me', href: users_show_path(@user))
+    end
+
+    it 'should not display email if it is set to private' do
+      @user.stub(display_email: false)
+      render
+      expect(rendered).to_not have_link(@user.email)
+    end
+
+    it 'should display an hire me button if it set to private' do
+      @user.stub(display_hire_me: false)
+      render
+      expect(rendered).not_to have_link('Hire me', href: users_show_path(@user))
+    end
+  end
+
   it 'should display Member for ..' do
     render
-    expect(rendered).to have_text('Member for: about 1 month')
+    expect(rendered).to have_text('Member for about 1 month')
+  end
+
+  it 'renders a bio' do
+    render
+    expect(rendered).to have_text 'Bio'
+    expect(rendered).to have_text 'Lonesome Cowboy'
+  end
+
+  it 'renders no bio field' do
+    @user.stub(bio: nil)
+    assign :bio, @user.bio
+    render
+    expect(rendered).not_to have_text('Bio')
   end
 
   it 'displays GitHub profile if it is linked' do
     @user.stub(github_profile_url: nil)
     render
-    expect(rendered).to have_text('GitHub profile: not linked')
+    expect(rendered).to have_text('GitHub profile not linked')
   end
 
   it 'displays GitHub profile is not linked if it is not linked' do
@@ -130,21 +142,15 @@ describe "users/show.html.erb" do
 
   context 'users own profile page' do
     before :each do
-        @user_logged_in ||= FactoryGirl.create :user
-        sign_in @user_logged_in # method from devise:TestHelpers
+      @user_logged_in ||= FactoryGirl.create :user
+      sign_in @user_logged_in # method from devise:TestHelpers
     end
     it 'displays an edit button if it is my profile' do
       render
       expect(rendered).to_not have_xpath("//a[contains(@type, 'button')]")
     end
-    it 'should display a commit count on some projects' do
-      commit_count = { '1' => 20, '2' => 50 }
-      assign :commit_count, { 1 => 20, 2 => 50 }
-      render
-      expect(rendered).to have_text('Title 1 commits: 20')
-      expect(rendered).to have_text('Title 2 commits: 50')
-      expect(rendered).to have_text('Title 3')
-    end
+
+
   end
   it 'renders a tab view - nav-tabs' do
     render
@@ -168,6 +174,4 @@ describe "users/show.html.erb" do
     render
     expect(rendered).to have_css('#skills-show')
   end
-
-  it 'renders user statistics'
 end

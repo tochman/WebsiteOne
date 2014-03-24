@@ -28,7 +28,7 @@ module UsersHelper
   end
 
   def video_link(video)
-    link_to video[:title], video[:url], id: video[:id], class: 'yt_link', data: { content: video[:content] }
+    link_to video[:title], video[:url], id: video[:id], class: 'yt_link', data: {content: video[:content]}
   end
 
   def video_embed_link(video)
@@ -49,14 +49,14 @@ module Github
     end
 
     def project_link(project)
-     if @commit_count[project.id].present?
-      link_to [project.title, @commit_count[project.id].to_s].join(' '), project_path(project)
-     else
-      link_to project.title, project_path(project)
+      if @commit_count[project.id].present?
+        link_to [project.title, @commit_count[project.id].to_s].join(' '), project_path(project)
+      else
+        link_to project.title, project_path(project)
+      end
     end
   end
 end
-
 #TODO YA move to a separate helper module and upgrade to v3
 module Youtube
   class << self
@@ -138,7 +138,7 @@ module Youtube
 
     def get_response(request)
       [].tap do |array|
-         #TODO YA rescue BadRequest
+        #TODO YA rescue BadRequest
         response = parse_response(open(URI.escape(request)).read)
         array.concat(response) if response
         array.sort_by! { |video| video[:published] }.reverse! unless array.empty?
@@ -211,4 +211,6 @@ module Youtube
 
   end
 end
+
+
 
