@@ -41,11 +41,12 @@ And(/^I create a project named "([^"]*)"$/) do |project|
 }
 end
 
-And(/^I create a hangout named "([^"]*)"$/) do |hangout|
+And(/^I create a PP session hangout for "([^"]*)"$/) do |project|
   steps %Q{
-    And I am on the "Show" page for project "Hello Galaxy"
-    And I click the "Join Project" button
-    And I click the "Start a Hangout On Air" button
+    And I am not a member of project "#{project}"
+    And I am on the "Show" page for project "#{project}"
+    And I click "Join Project"
+    And I create a hangout for "#{project}"
 }
 end
 
@@ -55,3 +56,9 @@ Given(/^I watch the Activity feed$/) do
     And I click the "Activity feed" link
 }
 end
+
+And (/^I create a hangout for "([^"]*)"$/) do |project|
+  FactoryGirl.create(:hangout, title: project)
+end
+
+

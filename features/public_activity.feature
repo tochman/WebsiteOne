@@ -21,7 +21,7 @@ Feature: Display Public Activity
     And I edit article "Ruby is on Fire"
     And I create a document named "A New Guide to the Galaxy"
     And I create a project named "Build NCC-1701 Enterprise"
-    And I create a hangout named "foobar"
+    And I create a PP session hangout for "Hello Galaxy"
 
   Scenario: Navigate to activity feed
     Given I am on the "Dashboard" page
