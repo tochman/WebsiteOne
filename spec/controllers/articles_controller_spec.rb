@@ -233,4 +233,38 @@ describe ArticlesController do
       expect(assigns(:article).created_at).to_not be_nil
     end
   end
+
+  describe 'voting' do
+
+    let(:user) { FactoryGirl.build(:user) }
+    let(:article) { FactoryGirl.build(:article, author: user) }
+
+
+    before(:each) do
+      allow(controller).to receive(:upvote)
+      allow(controller).to receive(:downvote)
+      allow(controller).to receive(:cancelvote)
+    end
+
+    describe 'recieves upvote' do
+
+      it 'should render alert when current_user votes on own article' do
+        controller.stub(:current_user).and_return(user)
+        expect(controller).to receive(:upvote)
+        binding.pry
+        expect(flash[:alert]).to eq 'Can not vote for your own article'
+      end
+    end
+
+    describe 'recieves downvote' do
+      pending
+    end
+
+    describe 'recieves cancelvote' do
+      pending
+    end
+
+  end
+
+
 end
