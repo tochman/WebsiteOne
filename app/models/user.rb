@@ -23,13 +23,17 @@ class User < ActiveRecord::Base
 
   after_validation :geocode, if: ->(obj){ obj.last_sign_in_ip_changed? }
   after_validation -> { KarmaCalculator.new(self).perform }
+  after_create :send_slack_invite, if: -> { Features.slack.invites.enabled }
 
   has_many :authentications, dependent: :destroy
   has_many :projects
   has_many :documents
   has_many :articles
   has_many :event_instances
-  has_many :commit_counts 
+  has_many :commit_counts
+  has_many :status
+
+  accepts_nested_attributes_for :status
 
   self.per_page = 30
 
@@ -88,4 +92,15 @@ class User < ActiveRecord::Base
     github_url = "https://github.com/#{username}"
     find_by(github_profile_url: github_url)
   end
+
+  def online?
+    updated_at > 10.minutes.ago
+  end
+
+  private
+
+  def send_slack_invite
+    SlackInviteJob.new.async.perform(email)
+  end
+
 end
