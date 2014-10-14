@@ -3,7 +3,11 @@ require 'spec_helper'
 describe Article, :type => :model do
 
   let(:user) { FactoryGirl.create :user } 
-  subject { Article.new slug: 'test-article', user: user }
+  subject { FactoryGirl.build(:article, slug: 'test-article', user: user ) }
+
+  it 'should have valid factory' do
+    expect(FactoryGirl.create(:article)).to be_valid
+  end
 
   it { is_expected.to respond_to :tag_list}
   it { is_expected.to respond_to :user}
@@ -27,11 +31,11 @@ describe Article, :type => :model do
 
   describe '#url_for_me' do
     it 'returns correct url for show action' do
-      expect(subject.url_for_me('show')).to eq "/articles/test-article"
+      expect(subject.url_for_me('show')).to eq '/articles/test-article'
     end
 
     it 'returns correct url for other actions' do
-      expect(subject.url_for_me('new')).to eq "/articles/test-article/new"
+      expect(subject.url_for_me('new')).to eq '/articles/test-article/new'
     end
   end
 
