@@ -14,7 +14,7 @@
 #   https://gorails.com/setup/ubuntu/14.04
 #
 
-REQUIRED_RUBY=2.1.1 GEMSET=WebsiteOne WITH_PHANTOMJS=true source <(\
+REQUIRED_RUBY=2.1.5 GEMSET=WebsiteOne WITH_PHANTOMJS=true source <(\
   \curl -sSL https://raw.githubusercontent.com/AgileVentures/setup-scripts/master/scripts/rails_setup.sh)
 
 if [[ $? = 0 ]]; then
