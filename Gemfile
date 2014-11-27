@@ -8,6 +8,7 @@ gem 'polyamorous', github: 'activerecord-hackery/polyamorous', branch: 'rails-4.
 gem 'puma' # Puma web server
 gem 'pg'  # PostgreSQL database support
 gem 'sass-rails', '~> 4.0.0' # Sass stylesheet language
+gem 'sass', '3.4.7'
 gem 'uglifier'  # Javascript compressor
 gem 'coffee-rails'  # Coffee-script support
 gem 'therubyracer', platforms: :ruby  # Google V8 javascript engine
@@ -27,7 +28,7 @@ gem 'acts_as_tree'
 gem 'acts_as_follower'
 gem 'will_paginate-bootstrap'
 gem 'coveralls', require: false # TODO Bryan: move to production group?
-gem 'friendly_id'  # for more REST-ful routes, use human-readable IDs
+gem 'friendly_id', '~> 5.0.0'  # for more REST-ful routes, use human-readable IDs
 gem 'colored' # colorizing console
 gem 'redcarpet' # renders markdown
 gem 'coderay' # syntax highlighting for markdown code blocks
@@ -74,6 +75,7 @@ group :test do
   gem 'delorean' # mocking Time in tests, aka time travelling
   gem 'vcr' # records and plays http interactions for testing
   gem 'shoulda-matchers', require: false #simplifies tests of common Rails functionality
+  gem 'capybara-screenshot' #Automatically save screen shots when a Capybara scenario fails
 end
 
 group :development, :test do
