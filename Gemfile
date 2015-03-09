@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.1'
+ruby '2.2.1'
 gem 'rails', '4.1.0'
 # Added after upgrade to rails 4.1
 gem 'polyamorous', github: 'activerecord-hackery/polyamorous', branch: 'rails-4.1'
@@ -61,6 +61,8 @@ gem 'sucker_punch' # Single Process Ruby asynchronous processing library
 gem 'twitter', '~> 5.11.0' # twitter api wrapper
 
 gem 'jvectormap-rails', '~> 1.0.0' #jVectorMap for the Rails asset pipeline
+
+gem 'eventmachine', '~> 1.0.7'
 
 group :test do
   gem 'capybara' # Simulates user actions for cucumber
