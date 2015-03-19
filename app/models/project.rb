@@ -35,7 +35,7 @@ class Project < ActiveRecord::Base
   end
 
   def members
-    followers.select(&:display_profile)
+    followers.select(&:display_profile).select(&:youtube_id)
   end
 
   def members_tags

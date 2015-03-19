@@ -1,1 +1,9 @@
-$('#UsersList').html("<%= escape_javascript(render 'user_list') %>");
+<%  if params[:commit] == 'Search' %>
+    $('#users-list').html("<%= j render 'user_list', users: @users %>");
+<% else %>
+    $('#users-list').append('<%= j render 'user_list', users: @users %>');
+    $('a#load-more').attr('href', "<%= users_path page: @users.next_page%> ");
+    <% unless @users.next_page %>
+        $('a#load-more').remove();
+    <% end %>
+<% end %>

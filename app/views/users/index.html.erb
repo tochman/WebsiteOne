@@ -35,9 +35,31 @@
 <div class="row">
   <div class="col-sm-12">
     <% unless @users.empty? %>
-        <ul class="media-list row" id="UsersList">
+        <ul class="media-list row" id="users-list">
           <%= render 'user_list' %>
         </ul>
-    <% end %>
+        <div>
+          <%= link_to 'Load More...', users_path(page: @users.next_page),
+                      class: 'btn btn-default',
+                      id: 'load-more',
+                      remote: true if @users.next_page %>
+        </div>
+  <% end %>
   </div>
 </div>
+
+<script>
+    $(function() {
+        var loading_users;
+        loading_users = false;
+        return $('a#load-more').on('inview', function(e, visible) {
+            if (loading_users || !visible) {
+                return;
+            }
+            loading_users = true;
+            return $.getScript($(this).attr('href'), function() {
+                return loading_users = false;
+            });
+        });
+    });
+</script>
