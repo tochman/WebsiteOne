@@ -3,6 +3,7 @@
 <% else %>
     $('#users-list').append('<%= j render 'user_list', users: @users %>');
     $('a#load-more').attr('href', "<%= users_path page: @users.next_page%> ");
+    $('.pagination').replaceWith('<%= j (will_paginate @users, renderer: BootstrapPagination::Rails)  %>');
     <% unless @users.next_page %>
         $('a#load-more').remove();
     <% end %>

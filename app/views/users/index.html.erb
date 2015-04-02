@@ -39,7 +39,8 @@
           <%= render 'user_list' %>
         </ul>
         <div>
-          <%= link_to 'Load More...', users_path(page: @users.next_page),
+          <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
+          <%#= link_to 'Load More...', users_path(page: @users.next_page),
                       class: 'btn btn-default',
                       id: 'load-more',
                       remote: true if @users.next_page %>
