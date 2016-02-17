@@ -20,20 +20,6 @@ Feature: Create and maintain projects
 
 #  Scenarios for Index page
 
-  Scenario: List of projects in table layout
-    Given  I am on the "home" page
-    When I follow "Projects" within the navbar
-    Then I should see "List of Projects"
-    Then I should see:
-      | Text   |
-      | Create |
-      | Status |
-
-  Scenario: Columns in projects table
-    When I go to the "projects" page
-    Then I should see "List of Projects" table
-
-
   Scenario: See a list of current projects
     Given  I am on the "home" page
     When I follow "Projects" within the navbar
@@ -59,26 +45,6 @@ Feature: Create and maintain projects
     Given I am not logged in
     When I am on the "projects" page
     Then I should not see the very stylish "New Project" button
-
-# This scenario is no longer valid after we added ordering by status and commit count
-#  Scenario: Alphabetically display pagination in "Our Projects" page
-#    Given I am on the "home" page
-#    When I follow "Projects" within the navbar
-#    Then I should see:
-#      | greetings aliens        |
-#      | greetings jupiter folks |
-#      | greetings mercury folks |
-#      | greetings saturn folks  |
-#      | greetings sun folks     |
-#    And I should not see "greetings earthlings"
-#    When I go to the next page
-#    Then I should not see:
-#      | greetings aliens        |
-#      | greetings jupiter folks |
-#      | greetings mercury folks |
-#      | greetings saturn folks  |
-#      | greetings sun folks     |
-#    And I should see "greetings earthlings"
 
 #  Scenarios for NEW page
 

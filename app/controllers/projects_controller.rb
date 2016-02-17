@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
 
-  layout 'with_sidebar'
+  #layout 'with_sidebar'
   before_filter :authenticate_user!, except: [:index, :show]
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   before_action :get_current_stories, only: [:show]
@@ -11,7 +11,7 @@ class ProjectsController < ApplicationController
   def index
     @projects = Project.order('status ASC').order('commit_count DESC NULLS LAST').search(params[:search], params[:page]).includes(:user)
     #binding.pry
-    render layout: 'with_sidebar_sponsor_right'
+    #render layout: 'with_sidebar_sponsor_right'
   end
 
   def show
